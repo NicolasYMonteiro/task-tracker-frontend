@@ -11,6 +11,8 @@ const nextConfig: NextConfig = {
       "@features": path.resolve(__dirname, "src/features"),
       "@auth": path.resolve(__dirname, "src/features/auth"),
       "@types": path.resolve(__dirname, "src/types"),
+      "@lib": path.resolve(__dirname, "src/lib"),
+
     };
     return config;
   },
