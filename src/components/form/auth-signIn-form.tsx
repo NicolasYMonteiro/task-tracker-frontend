@@ -28,63 +28,51 @@ const SignInForm = () => {
     }
 
     return (
-        <div className="relative min-h-screen flex items-center justify-center">
-            <div className="hidden md:block absolute inset-0 -z-10">
-                <Image
-                    src="/greciaFundo.png"
-                    alt="Templo Grego"
-                    fill
-                    className="object-cover"
-                    priority
-                />
-            </div>
-            <div className="absolute inset-0 bg-gradient-to-r from-black/15 via-black/5 to-black/15" />
-            <div className="max-w-md w-full bg-white/90 backdrop-blur-md rounded-2xl shadow-xl border p-8">
+        <div className="max-w-md w-full bg-white/90 backdrop-blur-md rounded-2xl shadow-xl border p-8">
 
-                <h1 className="text-3xl font-serif text-blue-900 text-center mb-2 tracking-wide">
-                    Atlas Desenvolvimento
-                </h1>
-                <p className="italic text-sm text-gray-600 text-center mb-6">
-                    “Conhece-te a ti mesmo” — Oráculo de Delfos
-                </p>
-                <h2 className="text-lg font-medium text-center mb-4 text-gray-800">
-                    Acesse sua Conta
-                </h2>
+            <h1 className="text-3xl font-serif text-blue-900 text-center mb-2 tracking-wide">
+                Atlas Desenvolvimento
+            </h1>
+            <p className="italic text-sm text-gray-600 text-center mb-6">
+                “Conhece-te a ti mesmo” — Oráculo de Delfos
+            </p>
+            <h2 className="text-lg font-medium text-center mb-4 text-gray-800">
+                Acesse sua Conta
+            </h2>
 
-                <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                        <CustomFormField
-                            control={form.control}
-                            name="email"
-                            label="Email"
-                            placeholder="Insira seu email"
-                            fieldType={FormFieldType.INPUT}
-                            error={!!form.formState.errors.email?.message}
-                        />
-                        <CustomFormField
-                            control={form.control}
-                            name="password"
-                            label="Password"
-                            placeholder="Insira sua senha"
-                            fieldType={FormFieldType.INPUT}
-                            error={!!form.formState.errors.password?.message}
-                        />
-                        <Button
-                            type="submit"
-                            className="w-full text-md md:text-lg bg-blue-900 text-white hover:bg-blue-800 transition-colors"
-                        >
-                            Entrar
-                        </Button>
-                    </form>
-                </Form>
+            <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                    <CustomFormField
+                        control={form.control}
+                        name="email"
+                        label="Email"
+                        placeholder="Insira seu email"
+                        fieldType={FormFieldType.INPUT}
+                        error={!!form.formState.errors.email?.message}
+                    />
+                    <CustomFormField
+                        control={form.control}
+                        name="password"
+                        label="Password"
+                        placeholder="Insira sua senha"
+                        fieldType={FormFieldType.INPUT}
+                        error={!!form.formState.errors.password?.message}
+                    />
+                    <Button
+                        type="submit"
+                        className="w-full text-md md:text-lg bg-blue-900 text-white hover:bg-blue-800 transition-colors"
+                    >
+                        Entrar
+                    </Button>
+                </form>
+            </Form>
 
-                <p className="text-sm text-center mt-4">
-                    Ainda não tem uma conta?{" "}
-                    <Link href="/sign-up" className="text-blue-800 underline hover:text-blue-600 transition-colors">
-                        Clique aqui.
-                    </Link>
-                </p>
-            </div>
+            <p className="text-sm text-center mt-4">
+                Ainda não tem uma conta?{" "}
+                <Link href="/sign-up" className="text-blue-800 underline hover:text-blue-600 transition-colors">
+                    Clique aqui.
+                </Link>
+            </p>
         </div>
     );
 
