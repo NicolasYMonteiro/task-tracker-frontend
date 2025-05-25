@@ -1,8 +1,10 @@
+import SignUpForm from "@components/form/auth-signUp-form";
+
 const SignUp = () => {
     return (
-        <div>
-            Sign Up Page
-        </div>
+        <section>
+            <SignUpForm />
+        </section>
     );
 }
 

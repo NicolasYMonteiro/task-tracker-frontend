@@ -1,9 +1,13 @@
+import SignInForm from '@components/form/auth-signIn-form';
+
 const SignIn = () => {
+
   return (
-      <div>
-          Sign In Page
-      </div>
+    <section>
+      <SignInForm />
+    </section>
   );
+
 }
 
 export default SignIn;
