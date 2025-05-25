@@ -13,7 +13,7 @@ const SignUp = () => {
                     priority
                 />
             </div>
-            <div className="absolute inset-0 bg-gradient-to-r from-black/15 via-black/5 to-black/15" />
+            <div className="md:absolute inset-0 bg-gradient-to-r from-black/15 via-black/5 to-black/15" />
             <SignUpForm />
 
         </section>

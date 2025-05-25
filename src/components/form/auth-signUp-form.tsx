@@ -40,7 +40,7 @@ const SignUpForm = () => {
             { name: "confirmPassword", label: "Confirme a Senha", placeholder: "Confirme sua senha", type: FormFieldType.INPUT },
         ];
     return (
-        <div className="max-w-md w-full bg-white/90 backdrop-blur-md rounded-2xl shadow-xl border p-8">
+        <div className="max-w-md w-full bg-white/90 backdrop-blur-md md:rounded-2xl md:shadow-xl md:border p-8">
 
             <h1 className="text-3xl font-serif font-bold text-blue-900 text-center mb-2 tracking-wide">
                 Atlas Desenvolvimento

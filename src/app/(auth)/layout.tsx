@@ -12,7 +12,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="">
+    <div className="text-black bg-white md:bg-transparent">
       <main className="">{children}</main>
     </div>
   );
