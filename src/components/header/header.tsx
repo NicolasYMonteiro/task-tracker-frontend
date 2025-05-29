@@ -9,7 +9,7 @@ const Header = () => {
   const navLinks = (
     <ul className="flex flex-col md:items-center mt-4 space-y-2 text-lg md:mt-0 md:flex-row md:space-y-0 md:space-x-6 uppercase">
       <li>
-        <a href="/tarefas" className="hover:text-gray-400">
+        <a href="/task" className="hover:text-gray-400">
           Tarefas
         </a>
       </li>

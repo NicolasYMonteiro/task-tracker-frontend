@@ -12,7 +12,7 @@ const Home = () => {
                     Bem-vindo ao seu novo ciclo de crescimento
                 </h2>
                 <div className="flex justify-center gap-4">
-                    <a href="/tarefas" className="bg-blue-900 text-white px-6 py-2 rounded-lg shadow hover:bg-blue-700 transition">
+                    <a href="/task" className="bg-blue-900 text-white px-6 py-2 rounded-lg shadow hover:bg-blue-700 transition">
                         Começar agora
                     </a>
                     <a href="/relatorios" className="border border-blue-900 text-blue-900 px-6 py-2 rounded-lg hover:bg-blue-200 transition">
@@ -28,7 +28,7 @@ const Home = () => {
                         title: "Tarefas",
                         description: "Organize e acompanhe suas tarefas diárias.",
                         icon: "📋",
-                        url: "/tarefas",
+                        url: "/task",
                     },
                     {
                         title: "Estudos",
