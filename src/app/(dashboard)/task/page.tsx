@@ -11,6 +11,9 @@ const Page = () => {
       title: 'Estudar algoritmos',
       description: 'Ler sobre listas encadeadas e resolver 3 exercícios no LeetCode.',
       date: new Date(2025, 4, 24),
+      interval: 2,
+      sequence: 1,
+      emergency: true,
       status: 'pending',
     },
     {
@@ -39,6 +42,7 @@ const Page = () => {
       title: 'Enviar currículo',
       description: 'Aplicar para 3 vagas no LinkedIn com foco em frontend/React.',
       date: new Date(2025, 4, 25),
+      emergency: true,
       status: 'pending',
     },
     {
@@ -53,6 +57,8 @@ const Page = () => {
       title: 'Fazer exercício físico',
       description: 'Caminhar 30 minutos para manter a saúde física e mental.',
       date: new Date(2025, 4, 26),
+      interval: 1,
+      sequence: 45,
       status: 'pending',
     },
     {
