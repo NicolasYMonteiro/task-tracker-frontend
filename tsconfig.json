@@ -24,7 +24,7 @@
       "@hooks/*": ["./hooks/*"],
       "@utils/*": ["./utils/*"],
       "@features/*": ["./features/*"],
-      "@types/*": ["./types/*"],
+      "@sharedTypes/*": ["./types/*"],
       "@lib/*": ["./lib/*"]
     },
   },
