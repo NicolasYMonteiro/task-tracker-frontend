@@ -127,11 +127,11 @@ const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {
       return (
         <div className="flex rounded-md border dark:border-dark-500 dark:bg-dark-400">
           <Image
-            src="/assets/icons/calendar.svg"
-            height={24}
-            width={24}
+            src="/agenda-.svg"
+            height={30}
+            width={30}
             alt="user"
-            className="ml-2"
+            className="ml-2 border-r border-gray-300 pr-2"
           />
           <FormControl>
             <DatePicker

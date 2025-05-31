@@ -30,7 +30,7 @@ const DatePicker = ({ placeholder, field, name, error, disabled }: DatePickerPro
           aria-describedby={`${name}-error`}
           disabled={disabled}
           className={cn(
-            "md:w-72  sm:w-64 text-left rounded-xl bg-background px-3 py-2 text-sm",
+            "w-full bg-white hover:bg-gray-200 text-black px-3 py-2 text-sm",
             !field.value && "text-muted-foreground"
           )}
         >
@@ -43,18 +43,22 @@ const DatePicker = ({ placeholder, field, name, error, disabled }: DatePickerPro
           )}
         </Button>
       </PopoverTrigger>
-      {!disabled && ( // Impede a abertura do popover quando desativado
+      {!disabled && ( 
 
         <PopoverContent
-          className="w-auto p-0 bg-white dark:bg-dark-400"
+          className="bg-white"
           align="start"
+          side="top"
+          sideOffset={8}
+          alignOffset={0}
+          avoidCollisions={false}
         >
           <Calendar
             mode="single"
             selected={field.value}
             onSelect={field.onChange}
-            captionLayout="dropdown"
-            fromYear={1960}
+            captionLayout="buttons"
+            fromYear={1920}
             toYear={2030}
             disabled={(date) =>
               date > new Date() || date < new Date("1900-01-01")
