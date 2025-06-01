@@ -16,7 +16,7 @@ const Header = () => {
       <hr className="border-t border-gray-500/70 w-full" />
 
       <li>
-        <a href="/estudos" className="hover:text-gray-400">
+        <a href="/study" className="hover:text-gray-400">
           Estudos
         </a>
       </li>

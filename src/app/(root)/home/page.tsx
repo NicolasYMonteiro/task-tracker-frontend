@@ -1,7 +1,7 @@
 const Home = () => {
     return (
         <section className="bg-white text-gray-800">
-            <section className="text-center py-16 bg-gradient-to-b from-blue-200 to-white">
+            <section className="text-center py-16 bg-gradient-to-b from-blue-100 to-white">
                 <h1 className="text-4xl font-serif font-bold text-blue-900 mb-2 tracking-wide">
                     Atlas Desenvolvimento
                 </h1>
@@ -34,7 +34,7 @@ const Home = () => {
                         title: "Estudos",
                         description: "Monitore seu aprendizado e evolução.",
                         icon: "📚",
-                        url: "/estudos",
+                        url: "/study",
                     },
                     {
                         title: "Relatórios",

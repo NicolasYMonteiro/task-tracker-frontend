@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import TaskCard, { Task } from '@components/card/task-card';
+import TaskCard from '@components/card/task-card';
+import  type { Task } from "@sharedTypes/task";
 import CreateTaskModal from '@components/modal/create-task-modal';
 
 const Page = () => {
