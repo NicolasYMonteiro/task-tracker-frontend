@@ -23,7 +23,7 @@ const CreateTaskForm = () => {
         defaultValues: {
             title: "",
             description: "",
-            date: "",
+            date: new Date(),
             emergency: false,
             interval: 0,
         },

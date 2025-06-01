@@ -9,7 +9,7 @@ import { Button } from "@components/ui/button";
 import { formSchema } from "schemas/task-schema";
 import { useState } from "react";
 import { Task } from "@sharedTypes/task";
-import { FaPen } from "react-icons/fa";
+import { FaPen, FaTrash } from "react-icons/fa";
 
 type EditTaskFormData = z.infer<typeof formSchema>;
 
@@ -47,6 +47,9 @@ const EditTaskForm = ({ task }: EditTaskModalProps) => {
   const onSubmit = (data: EditTaskFormData) => {
     console.log("Form submitted with data:", data);
   }
+  const handleDelete = () => {
+    console.log("Delete task with ID:", task.id);
+  };
 
   const renderEditableField = (
     name: keyof EditTaskFormData,
@@ -105,12 +108,29 @@ const EditTaskForm = ({ task }: EditTaskModalProps) => {
             "Insira o intervalo em dias",
             FormFieldType.INPUT
           )}
+          <div className="flex justify-center align-center ">
           <Button
             type="submit"
             className="w-full text-md md:text-lg bg-blue-900 text-white hover:bg-blue-800 transition-colors"
           >
             Editar Tarefa
           </Button>
+
+          <Button
+            type="button"
+            onClick={handleDelete}
+            className="w-fit ml-2 text-red-700 hover:text-red-800 hover:bg-gray-50 bg-white border border-gray-300"
+          >
+            <FaTrash className="h-auto w-auto"
+            title="Excluir Tarefa"
+            aria-label="Excluir Tarefa"
+            width={20}
+            height={20}
+             />
+          </Button>
+          </div>
+
+
         </form>
       </Form>
     </div>
