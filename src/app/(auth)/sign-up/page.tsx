@@ -1,4 +1,4 @@
-import SignUpForm from "@components/form/auth-signUp-form";
+import SignUpForm from "@components/form/auth-form/auth-signUp-form";
 import Image from 'next/image';
 
 const SignUp = () => {

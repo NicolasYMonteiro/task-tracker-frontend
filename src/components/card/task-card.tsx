@@ -3,6 +3,7 @@ import { FaCheck, FaPen, FaUndo } from 'react-icons/fa';
 import { cn } from "@lib/utils";
 import  type { Task } from "@sharedTypes/task";
 import { TriangleAlert } from 'lucide-react';
+import EditTaskModal from "@components/modal/edit-task-modal";
 
 interface TaskCardProps {
   task: Task;
@@ -25,7 +26,7 @@ const TaskCard = ({ task, onToggle }: TaskCardProps) => {
         "relative p-4 rounded-xl border shadow-md transition-all duration-300 flex flex-col justify-between",
         emergency ? "border-red-700 border-2 shadow-red-500" :
           isCancelled ? "border-gray-300" : "border-yellow-700",
-        isCancelled ? "bg-gray-50" : "bg-[#fff8ec]",
+        isCancelled ? "bg-gray-50" : "bg-[#fff8ec]/70",
         (isCompleted || isCancelled) && "opacity-60 line-through"
       )}
     >
@@ -85,14 +86,7 @@ const TaskCard = ({ task, onToggle }: TaskCardProps) => {
           {isCompleted ? "Desmarcar" : "Concluir"}
         </button>
 
-        <button
-          onClick={() => console.log('Editar tarefa', id)}
-          className="h-full border border-yellow-600 bg-yellow-100 hover:bg-yellow-200 flex items-center justify-center gap-2 rounded-md px-3 py-2 text-yellow-800 text-sm font-semibold transition"
-          aria-label="Editar tarefa"
-          title="Editar tarefa"
-        >
-          <FaPen />
-        </button>
+          <EditTaskModal task={task} />
       </div>
     </div>
   );

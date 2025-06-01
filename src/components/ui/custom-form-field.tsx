@@ -115,6 +115,7 @@ const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {
               defaultValue={field.value}
               id={props.name}
               checked={field.value}
+              disabled={props.disabled} 
               onCheckedChange={field.onChange}
             />
             <label htmlFor={props.name} className="checkbox-label">

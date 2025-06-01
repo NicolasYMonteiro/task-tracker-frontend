@@ -4,7 +4,7 @@ export interface Task {
     id: number;
     title: string;
     description: string;
-    date: Date | string;
+    date: Date;
     interval?: number;
     sequence?: number;
     emergency?: boolean;

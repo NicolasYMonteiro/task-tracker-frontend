@@ -2,15 +2,14 @@ import Modal from "@components/modal/modal";
 import { Button } from "@components/ui/button";
 import { FaPlus } from "react-icons/fa";
 import { cn } from "@lib/utils";
-import CustomFormField from "@components/ui/custom-form-field";
-import CreateTaskForm from "@components/form/create-task-form";
+import CreateTaskForm from "@components/form/task-form/create-task-form";
 
 const CreateTaskModal = () => {
     return (
         <div className="h-full w-full flex justify-center items-center ">
             <Modal
                 title="Adicionar nova tarefa"
-                description="Esta é a descrição da nova tarefa que você deseja adicionar."
+                description="Preencha os campos necessários e adicione uma nova tarefa à sua lista."
                 buttonTrigger={
                     <Button
                         onClick={() => { }}
