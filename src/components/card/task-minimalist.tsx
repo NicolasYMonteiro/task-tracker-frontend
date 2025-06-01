@@ -31,7 +31,7 @@ const TaskMinimalist = () => {
     };
 
     return (
-        <div className="w-full h-fit mx-auto mt-10 p-6 bg-white rounded-3xl shadow-md border border-gray-200 text-center space-y-4">
+        <div className="w-full h-fit z-10 mx-auto mt-10 p-6 bg-white rounded-3xl shadow-md border border-blue-700 text-center space-y-4">
             <h2 className="text-xl font-semibold text-center text-gray-800">Tarefas</h2>
 
             <div className="space-y-2">
