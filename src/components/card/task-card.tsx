@@ -13,7 +13,6 @@ interface TaskCardProps {
 const TaskCard = ({ task, onToggle }: TaskCardProps) => {
   const { id, title, description, date, interval, sequence, emergency, status } = task;
 
-  const isCancelled = status === 'cancelled';
   const isCompleted = status === 'completed';
   const isInProgress = status === 'in-progress';
   const isPending = status === 'pending';
@@ -25,9 +24,7 @@ const TaskCard = ({ task, onToggle }: TaskCardProps) => {
       className={cn(
         "relative p-4 rounded-xl border shadow-md transition-all duration-300 flex flex-col justify-between",
         emergency ? "border-red-700 border-2 shadow-red-500" :
-          isCancelled ? "border-gray-300" : "border-yellow-700",
-        isCancelled ? "bg-gray-50" : "bg-[#fff8ec]/70",
-        (isCompleted || isCancelled) && "opacity-60 line-through"
+        (isCompleted) && "opacity-60 line-through"
       )}
     >
 
@@ -45,10 +42,6 @@ const TaskCard = ({ task, onToggle }: TaskCardProps) => {
             </h2>
           </div>
 
-
-          {isCancelled && (
-            <span className="text-xs font-semibold bg-gray-400/80 text-white px-2 py-1 rounded">Cancelado</span>
-          )}
           {isInProgress && (
             <span className="text-xs font-semibold bg-blue-500/80 text-white px-2 py-1 rounded">Em Progresso</span>
           )}
@@ -77,8 +70,6 @@ const TaskCard = ({ task, onToggle }: TaskCardProps) => {
             "w-full mr-3 flex items-center justify-center gap-2 rounded-md px-4 py-2 text-white text-sm font-semibold transition-shadow duration-150 shadow",
             isCompleted
               ? "bg-yellow-700 hover:bg-yellow-800"
-              : isCancelled
-                ? "bg-gray-400 hover:bg-gray-500"
                 : "bg-green-600 hover:bg-green-700"
           )}
         >
