@@ -23,7 +23,7 @@ const TaskCard = ({ task, onToggle }: TaskCardProps) => {
     <div
       className={cn(
         "relative p-4 rounded-xl border border-blue-600 shadow-md transition-all duration-300 flex flex-col justify-between",
-        "bg-white hover:shadow-lg hover:bg-gray-50",
+        "bg-[#fffef2] hover:shadow-lg hover:bg-[#fffeeb]",
         emergency ? "border-red-700 border-2 shadow-red-500" :
         (isCompleted) && "line-through"
       )}
