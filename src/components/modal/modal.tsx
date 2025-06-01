@@ -23,18 +23,10 @@ const Modal = ({
     description,
     children,
     buttonTrigger,
-    icon,
     className,
-    size = "medium",
     onClose,
     footer
 }: ModalProps) => {
-    const sizeClasses = {
-        small: "max-w-sm",
-        medium: "max-w-md",
-        large: "max-w-lg"
-    }[size];
-
     return (
         <Dialog onOpenChange={(open) => !open && onClose?.()}>
             <DialogTrigger asChild>{buttonTrigger}</DialogTrigger>

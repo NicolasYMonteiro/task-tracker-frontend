@@ -6,7 +6,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import CustomFormField, { FormFieldType } from "@components/ui/custom-form-field";
 import * as z from "zod";
 import { Button } from "@components/ui/button";
-import Image from "next/image";
 import Link from "next/link";
 
 import { formSchema } from "schemas/sign-up-schema";

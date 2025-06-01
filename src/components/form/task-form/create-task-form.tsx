@@ -6,11 +6,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import CustomFormField, { FormFieldType } from "@components/ui/custom-form-field";
 import * as z from "zod";
 import { Button } from "@components/ui/button";
-import Image from "next/image";
-import Link from "next/link";
 import { formSchema } from "schemas/task-schema";
 import { Checkbox } from "@components/ui/checkbox";
-import { is } from "date-fns/locale";
 import { useState } from "react";
 
 type CreateTaskFormData = z.infer<typeof formSchema>;

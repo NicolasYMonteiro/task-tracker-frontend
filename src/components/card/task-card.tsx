@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import { FaCheck, FaPen, FaUndo } from 'react-icons/fa';
+import { FaCheck, FaUndo } from 'react-icons/fa';
 import { cn } from "@lib/utils";
 import  type { Task } from "@sharedTypes/task";
 import { TriangleAlert } from 'lucide-react';
