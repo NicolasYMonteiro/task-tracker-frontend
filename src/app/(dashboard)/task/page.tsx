@@ -86,9 +86,9 @@ const Page = () => {
 
   return (
     <div className="relative min-h-screen px-4 py-8">
-      <div className="md:absolute inset-0 bg-cover bg-center bg-no-repeat opacity-30 pointer-events-none md:bg-[url('/greciaFundo.png')]" />
+      <div className="md:absolute inset-0 bg-cover bg-center bg-no-repeat opacity-25 pointer-events-none md:bg-[url('/greciaFundo.png')]" />
 
-      <div className="relative z-10 md:w-5/6 bg-white/80 backdrop-blur-md p-6 md:rounded-xl md:shadow-xl md:border md:border-blue-700 mx-auto">
+      <div className="relative z-10 md:w-5/6 p-6 md:rounded-xl mx-auto">
         <h1 className="text-4xl font-serif font-bold text-blue-900 text-center mb-6 tracking-wide">
           Tarefas do dia
         </h1>
