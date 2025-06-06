@@ -61,7 +61,7 @@ const DatePicker = ({ placeholder, field, name, error, disabled }: DatePickerPro
             fromYear={1920}
             toYear={2030}
             disabled={(date) =>
-              date > new Date() || date < new Date("1900-01-01")
+              date < new Date(new Date().setHours(0, 0, 0, 0))
             }
             initialFocus
             showOutsideDays={false}

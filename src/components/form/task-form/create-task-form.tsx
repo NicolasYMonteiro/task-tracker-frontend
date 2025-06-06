@@ -9,6 +9,10 @@ import { Button } from "@components/ui/button";
 import { formSchema } from "schemas/task-schema";
 import { Checkbox } from "@components/ui/checkbox";
 import { useState } from "react";
+import { Task } from "@sharedTypes/task";
+import { createTask } from "@actions/task/task.actions";
+import { toast } from "sonner";
+
 
 type CreateTaskFormData = z.infer<typeof formSchema>;
 
@@ -22,12 +26,29 @@ const CreateTaskForm = () => {
             description: "",
             date: new Date(),
             emergency: false,
-            interval: 0,
+            status: "PENDING",
+            interval: undefined,
         },
     });
 
-    const onSubmit = (data: CreateTaskFormData) => {
-        console.log("Form submitted with data:", data);
+    const onSubmit = async (data: CreateTaskFormData) => {
+        try {
+            const result = formSchema.safeParse(data);
+
+            if (!result.success) {
+                console.log("Erro de validação:", result.error);
+            }
+            const response = await createTask(data);
+            if (response.success) {
+                toast.success("Tarefa criada com sucesso!");
+                form.reset();
+            } else {
+                toast.error(response.message || "Erro ao criar tarefa");
+            }
+        } catch (error) {
+            console.error(error);
+            toast.error("Erro inesperado ao criar tarefa");
+        }
     }
 
     return (
