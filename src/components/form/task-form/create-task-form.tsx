@@ -9,7 +9,6 @@ import { Button } from "@components/ui/button";
 import { formSchema } from "schemas/task-schema";
 import { Checkbox } from "@components/ui/checkbox";
 import { useState } from "react";
-import { Task } from "@sharedTypes/task";
 import { createTask } from "@actions/task/task.actions";
 import { toast } from "react-toastify";
 
@@ -22,7 +21,7 @@ type CreateTaskFormProps = {
 const CreateTaskForm = ({ onSuccess }: CreateTaskFormProps) => {
     const [isPeriodic, setIsPeriodic] = useState(false);
 
-    const form = useForm<CreateTaskFormData>({
+    const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
             title: "",
@@ -30,7 +29,7 @@ const CreateTaskForm = ({ onSuccess }: CreateTaskFormProps) => {
             date: new Date(),
             emergency: false,
             status: "PENDING",
-            interval: isPeriodic ? 0 : undefined,
+            interval: 0,
         },
     });
 
