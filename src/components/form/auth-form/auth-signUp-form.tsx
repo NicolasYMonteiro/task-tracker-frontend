@@ -7,8 +7,9 @@ import CustomFormField, { FormFieldType } from "@components/ui/custom-form-field
 import * as z from "zod";
 import { Button } from "@components/ui/button";
 import Link from "next/link";
-
 import { formSchema } from "schemas/sign-up-schema";
+import { signUp } from "@actions/auth/auth.actions";
+import { toast } from "react-toastify";
 
 type SignUnFormData = z.infer<typeof formSchema>;
 
@@ -24,9 +25,28 @@ const SignUpForm = () => {
         },
     });
 
-    const onSubmit = (data: SignUnFormData) => {
-        console.log("Form submitted with data:", data);
-    }
+    const onSubmit = async (data: SignUnFormData) => {
+        const formData = new FormData();
+        formData.append("name", data.name);
+        formData.append("email", data.email);
+        formData.append("password", data.password);
+        formData.append("confirmPassword", data.confirmPassword);
+
+        try {
+            const result = await signUp(formData);
+
+            if (result?.error) {
+                toast.error(result.message || "Erro ao fazer login");
+                return;
+            }
+            toast.success(result?.message || "Login realizado com sucesso");
+            window.location.href = "/sign-in";
+        } catch (error) {
+            console.error("Erro inesperado ao criar conta:", error);
+            form.setError("root", { message: "Erro inesperado ao criar conta" });
+        }
+    };
+
     const fields: {
         name: keyof SignUnFormData;
         label: string;
