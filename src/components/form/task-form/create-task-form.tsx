@@ -11,12 +11,15 @@ import { Checkbox } from "@components/ui/checkbox";
 import { useState } from "react";
 import { Task } from "@sharedTypes/task";
 import { createTask } from "@actions/task/task.actions";
-import { toast } from "sonner";
+import { toast } from "react-toastify";
 
 
 type CreateTaskFormData = z.infer<typeof formSchema>;
+type CreateTaskFormProps = {
+    onSuccess?: () => void;
+};
 
-const CreateTaskForm = () => {
+const CreateTaskForm = ({ onSuccess }: CreateTaskFormProps) => {
     const [isPeriodic, setIsPeriodic] = useState(false);
 
     const form = useForm<CreateTaskFormData>({
@@ -27,7 +30,7 @@ const CreateTaskForm = () => {
             date: new Date(),
             emergency: false,
             status: "PENDING",
-            interval: undefined,
+            interval: isPeriodic ? 0 : undefined,
         },
     });
 
@@ -42,6 +45,8 @@ const CreateTaskForm = () => {
             if (response.success) {
                 toast.success("Tarefa criada com sucesso!");
                 form.reset();
+                window.location.reload();
+
             } else {
                 toast.error(response.message || "Erro ao criar tarefa");
             }

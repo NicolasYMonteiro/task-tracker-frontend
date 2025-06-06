@@ -18,8 +18,9 @@ export default function RootLayout({
       <body className="">
         <main>
           {children}
-          <ToastContainer position="bottom-right" autoClose={2000} />
         </main>
+        <ToastContainer position="bottom-right" autoClose={2000} />
+
         <footer className="fixed bottom-0 w-full pb-4 text-center text-sm text-gray-500">
           © {new Date().getFullYear()} Atlas Desenvolvimento. Todos os direitos reservados.
         </footer>
