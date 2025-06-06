@@ -1,5 +1,6 @@
 import type { NextConfig } from "next";
 import path from "path";
+/** @type {import('next').NextConfig} */
 
 const nextConfig: NextConfig = {
   webpack(config) {
@@ -15,6 +16,18 @@ const nextConfig: NextConfig = {
 
     };
     return config;
+  },
+  async rewrites() {
+    return [
+      {
+        source: "/user/:path*",
+        destination: "http://localhost:8000/user/:path*",
+      },
+      {
+        source: "/task/:path*",
+        destination: "http://localhost:8000/task/:path*",
+      },
+    ];
   },
 };
 

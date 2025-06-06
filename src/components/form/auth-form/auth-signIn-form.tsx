@@ -7,24 +7,40 @@ import CustomFormField, { FormFieldType } from "@components/ui/custom-form-field
 import * as z from "zod";
 import { Button } from "@components/ui/button";
 import Link from "next/link";
+import { signIn } from "@actions/auth/auth.actions";
+import { toast } from "react-toastify";
 
-import { formSchema } from "schemas/Sign-In-Schema";
+import { SignInSchema } from "schemas/Sign-In-Schema";
 
-type SignInFormData = z.infer<typeof formSchema>;
+type SignInFormData = z.infer<typeof SignInSchema>;
 
 const SignInForm = () => {
 
     const form = useForm<SignInFormData>({
-        resolver: zodResolver(formSchema),
+        resolver: zodResolver(SignInSchema),
         defaultValues: {
             email: "",
             password: "",
         },
     });
 
-    const onSubmit = (data: SignInFormData) => {
-        console.log("Form submitted with data:", data);
-    }
+    const onSubmit = async (data: SignInFormData) => {
+        const formData = new FormData();
+        formData.append("email", data.email);
+        formData.append("password", data.password);
+
+        const result = await signIn(formData);
+
+        if (result?.error) {
+            toast.error(result.message || "Erro ao fazer login");
+            return;
+          }
+          
+          toast.success(result?.message || "Login realizado com sucesso");
+          
+        // Login OK — redirecionar
+        // router.push("/dashboard");
+    };
 
     return (
         <div className="max-w-md w-full bg-white/90 backdrop-blur-md md:rounded-2xl md:shadow-xl md:border p-8">
