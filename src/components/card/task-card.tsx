@@ -1,23 +1,48 @@
 import { format } from 'date-fns';
 import { FaCheck, FaUndo } from 'react-icons/fa';
 import { cn } from "@lib/utils";
-import  type { Task } from "@sharedTypes/task";
+import  type { Task, UpdateTask } from "@sharedTypes/task";
 import { TriangleAlert } from 'lucide-react';
 import EditTaskModal from "@components/modal/edit-task-modal";
+import { updateTask } from '@actions/task/task.actions';
 
 interface TaskCardProps {
   task: Task;
-  onToggle: (id: number) => void;
 }
 
-const TaskCard = ({ task, onToggle }: TaskCardProps) => {
+const TaskCard = ({ task }: TaskCardProps) => {
   const { id, title, description, date, interval, sequence, emergency, status } = task;
 
-  const isCompleted = status === 'completed';
-  const isInProgress = status === 'in-progress';
-  const isPending = status === 'pending';
+  const isCompleted = status === 'COMPLETED' ;
+  const isInProgress = status === 'IN-PROGRESS';
+  const isPending = status === 'PENDING';
 
   const parsedDate = typeof date === 'string' ? new Date(date) : date;
+
+  const ChangeStatus = async () => {
+    const newStatus = status === 'COMPLETED' ? 'PENDING' : 'COMPLETED';
+  
+    const updatedTask: UpdateTask = {
+      id,
+      title,
+      description,
+      date: parsedDate,
+      interval,
+      emergency,
+      status: newStatus,
+    };
+
+    try {
+      const response = await updateTask(id, updatedTask);
+      if (response.success) {
+        window.location.reload();
+      } else {
+        console.error('Erro ao atualizar tarefa:', response.message);
+      }
+    } catch (error) {
+      console.error('Erro ao atualizar tarefa:', error);
+    }
+  };
 
   return (
     <div
@@ -55,16 +80,16 @@ const TaskCard = ({ task, onToggle }: TaskCardProps) => {
         <p className="text-xs text-gray-500 italic mb-1">
           Data: {format(parsedDate, 'dd/MM/yyyy')}
         </p>
-        {sequence && interval && (
+        {interval && (
           <p className="text-xs text-gray-500">
-            Intervalo: {interval} dias | Concluída {sequence} vez(es) consecutiva(s)
+            Intervalo: {interval} dias | Concluída {sequence || 0} vez(es) consecutiva(s)
           </p>
         )}
       </div>
 
       <div className='flex items-center mt-4'>
         <button
-          onClick={() => onToggle(id)}
+          onClick={ChangeStatus}
           aria-label={isCompleted ? "Desmarcar tarefa" : "Concluir tarefa"}
           title={isCompleted ? "Desmarcar tarefa" : "Concluir tarefa"}
           className={cn(

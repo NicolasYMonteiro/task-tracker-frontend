@@ -22,18 +22,6 @@ const Page = () => {
     fetchTasks();
   }, []);
 
-  const toggleStatus = (id: number) => {
-    setTasks((prev) =>
-      prev.map((task) =>
-        task.id === id
-          ? {
-            ...task,
-            status: task.status === 'completed' ? 'pending' : 'completed',
-          }
-          : task
-      )
-    );
-  };
 
   return (
     <div className="relative min-h-screen px-4 py-8">
@@ -52,7 +40,7 @@ const Page = () => {
 
           {tasks.length > 0 ? (
             tasks.map((task) => (
-              <TaskCard key={task.id} task={task} onToggle={toggleStatus} />
+              <TaskCard key={task.id} task={task} />
             ))
           ) : (
             <div className="col-span-full text-center text-gray-500 italic">

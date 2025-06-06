@@ -17,7 +17,16 @@ export interface CreateTask {
     description: string;
     date: Date;
     interval?: number;
-    sequence?: number;
+    emergency?: boolean;
+    status: TaskStatus;
+}
+
+export interface UpdateTask {
+    id: number;
+    title: string;
+    description: string;
+    date: Date;
+    interval?: number;
     emergency?: boolean;
     status: TaskStatus;
 }

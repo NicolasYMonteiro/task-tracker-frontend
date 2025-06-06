@@ -67,12 +67,13 @@ export async function updateTask(id: number, task: CreateTask) {
     const cookieStore = cookies();
     const token = (await cookieStore).get('token')?.value;
 
+    console.log("json: ", JSON.stringify(task))
     if (!token) {
         console.error('Token JWT não encontrado nos cookies');
         return { success: false, message: 'Token JWT não encontrado nos cookies' };
     }
     try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/task/update/${id}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/task/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
