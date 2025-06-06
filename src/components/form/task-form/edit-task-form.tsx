@@ -43,7 +43,7 @@ const EditTaskForm = ({ task }: EditTaskModalProps) => {
       date: new Date(task.date) || new Date(),
       emergency: task.emergency || false,
       status: task.status || "PENDING",
-      interval: task.interval || 0,
+      interval: task.interval || undefined,
     },
   });
 
@@ -132,12 +132,16 @@ const EditTaskForm = ({ task }: EditTaskModalProps) => {
             FormFieldType.CHECKBOX
           )}
 
-          {renderEditableField(
-            "interval",
-            "Intervalo (dias)",
-            "Insira o intervalo em dias",
-            FormFieldType.INPUT
+          {task.interval && (
+            renderEditableField(
+              "interval",
+              "Intervalo (dias)",
+              "Insira o intervalo em dias",
+              FormFieldType.INPUT
+            )
           )}
+
+
           <div className="flex justify-center align-center ">
             <Button
               type="submit"

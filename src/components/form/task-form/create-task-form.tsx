@@ -29,7 +29,7 @@ const CreateTaskForm = ({ onSuccess }: CreateTaskFormProps) => {
             date: new Date(),
             emergency: false,
             status: "PENDING",
-            interval: 0,
+            interval: undefined,
         },
     });
 

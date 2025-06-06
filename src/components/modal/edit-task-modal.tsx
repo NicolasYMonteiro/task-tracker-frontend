@@ -12,7 +12,7 @@ interface EditTaskModalProps {
         <section >
             <Modal
                 title="Editar tarefa"
-                description="Modifique as informações da tarefa conforme necessário."
+                description="Clique no lápis ao lado do campo que deseja editar e modifique as informações da tarefa conforme necessário."
                 buttonTrigger={
                     <button
                         onClick={() => console.log('Editar tarefa', task.id)}
