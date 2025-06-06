@@ -10,7 +10,8 @@ import { formSchema } from "schemas/task-schema";
 import { useState } from "react";
 import { Task } from "@sharedTypes/task";
 import { FaPen, FaTrash } from "react-icons/fa";
-
+import { updateTask, deleteTask } from "@actions/task/task.actions";
+import { toast } from "react-toastify";
 type EditTaskFormData = z.infer<typeof formSchema>;
 
 interface EditTaskModalProps {
@@ -23,6 +24,7 @@ const EditTaskForm = ({ task }: EditTaskModalProps) => {
     description: false,
     date: false,
     emergency: false,
+    status: false,
     interval: false,
   });
 
@@ -33,22 +35,50 @@ const EditTaskForm = ({ task }: EditTaskModalProps) => {
     }));
   };
 
-  const form = useForm<EditTaskFormData>({
+  const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: task.title || "",
       description: task.description || "",
       date: new Date(task.date) || new Date(),
       emergency: task.emergency || false,
+      status: task.status || "PENDING",
       interval: task.interval || 0,
     },
   });
 
-  const onSubmit = (data: EditTaskFormData) => {
-    console.log("Form submitted with data:", data);
+  const onSubmit = async (data: EditTaskFormData) => {
+    const result = formSchema.safeParse(data);
+
+    if (!result.success) {
+      console.log("Erro de validação:", result.error);
+      return;
+    }
+    try {
+      const response = await updateTask(task.id, data)
+      if (response.success) {
+        toast.success("Tarefa modificada com sucesso!");
+        form.reset();
+        window.location.reload();
+
+      } else {
+        toast.error(response.message || "Erro ao criar tarefa");
+      }
+    }
+    catch (error) {
+      console.error("Erro inesperado ao atualizar tarefa:", error);
+    }
   }
   const handleDelete = () => {
-    console.log("Delete task with ID:", task.id);
+    try {
+      deleteTask(task.id);
+      toast.success("Tarefa excluída com sucesso!");
+      window.location.reload();
+    }
+    catch (error) {
+      console.error("Erro ao excluir tarefa:", error);
+      toast.error("Erro ao excluir tarefa");
+    }
   };
 
   const renderEditableField = (
@@ -109,25 +139,25 @@ const EditTaskForm = ({ task }: EditTaskModalProps) => {
             FormFieldType.INPUT
           )}
           <div className="flex justify-center align-center ">
-          <Button
-            type="submit"
-            className="w-full text-md md:text-lg bg-blue-900 text-white hover:bg-blue-800 transition-colors"
-          >
-            Editar Tarefa
-          </Button>
+            <Button
+              type="submit"
+              className="w-full text-md md:text-lg bg-blue-900 text-white hover:bg-blue-800 transition-colors"
+            >
+              Editar Tarefa
+            </Button>
 
-          <Button
-            type="button"
-            onClick={handleDelete}
-            className="w-fit ml-2 text-red-700 hover:text-red-800 hover:bg-gray-50 bg-white border border-gray-300"
-          >
-            <FaTrash className="h-auto w-auto"
-            title="Excluir Tarefa"
-            aria-label="Excluir Tarefa"
-            width={20}
-            height={20}
-             />
-          </Button>
+            <Button
+              type="button"
+              onClick={handleDelete}
+              className="w-fit ml-2 text-red-700 hover:text-red-800 hover:bg-gray-50 bg-white border border-gray-300"
+            >
+              <FaTrash className="h-auto w-auto"
+                title="Excluir Tarefa"
+                aria-label="Excluir Tarefa"
+                width={20}
+                height={20}
+              />
+            </Button>
           </div>
 
 

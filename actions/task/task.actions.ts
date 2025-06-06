@@ -104,7 +104,7 @@ export async function deleteTask(id: number) {
         return { success: false, message: 'Token JWT não encontrado nos cookies' };
     }
     try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/task/delete/${id}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/task/${id}`, {
             method: 'DELETE',
             headers: {
                 Authorization: `Bearer ${token}`,
