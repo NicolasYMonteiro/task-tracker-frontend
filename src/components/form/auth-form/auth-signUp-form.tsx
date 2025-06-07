@@ -51,12 +51,13 @@ const SignUpForm = () => {
         name: keyof SignUnFormData;
         label: string;
         placeholder: string;
-        type: FormFieldType;
+        fieldType: FormFieldType;
+        type?: string;
     }[] = [
-            { name: "name", label: "Nome", placeholder: "Insira seu nome", type: FormFieldType.INPUT },
-            { name: "email", label: "Email", placeholder: "Insira seu email", type: FormFieldType.INPUT },
-            { name: "password", label: "Senha", placeholder: "Insira sua senha", type: FormFieldType.INPUT },
-            { name: "confirmPassword", label: "Confirme a Senha", placeholder: "Confirme sua senha", type: FormFieldType.INPUT },
+            { name: "name", label: "Nome", placeholder: "Insira seu nome", fieldType: FormFieldType.INPUT },
+            { name: "email", label: "Email", placeholder: "Insira seu email", fieldType: FormFieldType.INPUT },
+            { name: "password", label: "Senha", placeholder: "Insira sua senha", fieldType: FormFieldType.INPUT, type: "password" },
+            { name: "confirmPassword", label: "Confirme a Senha", placeholder: "Confirme sua senha", fieldType: FormFieldType.INPUT, type: "password" },
         ];
     return (
         <div className="max-w-md w-full bg-white/90 backdrop-blur-md md:rounded-2xl md:shadow-xl md:border p-8">
@@ -80,7 +81,8 @@ const SignUpForm = () => {
                             name={field.name}
                             label={field.label}
                             placeholder={field.placeholder}
-                            fieldType={field.type}
+                            fieldType={field.fieldType}
+                            type={field.type}
                             error={!!form.formState.errors[field.name]?.message}
                         />
                     ))}

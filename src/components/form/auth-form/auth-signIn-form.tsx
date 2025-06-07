@@ -69,6 +69,7 @@ const SignInForm = () => {
                         control={form.control}
                         name="password"
                         label="Password"
+                        type="password"
                         placeholder="Insira sua senha"
                         fieldType={FormFieldType.INPUT}
                         error={!!form.formState.errors.password?.message}
