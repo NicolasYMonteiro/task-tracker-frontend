@@ -1,16 +1,10 @@
 'use server';
 
-import { cookies } from 'next/headers';
 import type { CreateTask } from '@sharedTypes/task';
+import { getToken } from '@lib/server-utils';
 
 export async function getTasks() {
-    const cookieStore = cookies();
-    const token = (await cookieStore).get('token')?.value;
-
-    if (!token) {
-        console.error('Token JWT não encontrado nos cookies');
-        return [];
-    }
+    const token = await getToken();
     try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/task/listAll`, {
             cache: 'no-store',
@@ -33,13 +27,8 @@ export async function getTasks() {
 }
 
 export async function createTask(task: CreateTask) {
-    const cookieStore = cookies();
-    const token = (await cookieStore).get('token')?.value;
+    const token = await getToken();
 
-    if (!token) {
-        console.error('Token JWT não encontrado nos cookies');
-        return { success: false, message: 'Token JWT não encontrado nos cookies' };
-    }
     try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/task/create`, {
             method: 'POST',
@@ -64,14 +53,8 @@ export async function createTask(task: CreateTask) {
 }
 
 export async function updateTask(id: number, task: CreateTask) {
-    const cookieStore = cookies();
-    const token = (await cookieStore).get('token')?.value;
+    const token = await getToken();
 
-    console.log("json: ", JSON.stringify(task))
-    if (!token) {
-        console.error('Token JWT não encontrado nos cookies');
-        return { success: false, message: 'Token JWT não encontrado nos cookies' };
-    }
     try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/task/${id}`, {
             method: 'PUT',
@@ -95,14 +78,32 @@ export async function updateTask(id: number, task: CreateTask) {
     }
 }
 
-export async function deleteTask(id: number) {
-    const cookieStore = cookies();
-    const token = (await cookieStore).get('token')?.value;
+export async function completeTask(id: number) {
+    const token = await getToken();
 
-    if (!token) {
-        console.error('Token JWT não encontrado nos cookies');
-        return { success: false, message: 'Token JWT não encontrado nos cookies' };
+    try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/task/complete/${id}`, {
+            method: 'PUT',
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        if (!res.ok) {
+            const errorData = await res.json();
+            console.error('Erro ao completar tarefa:', errorData);
+            return { success: false, message: errorData.message || 'Erro ao completar tarefa' };
+        }
+        const data = await res.json();
+        return { success: true, data };
+    } catch (error) {
+        console.error('Erro ao completar tarefa:', error);
+        return { success: false, message: 'Erro ao completar tarefa' };
     }
+}
+
+export async function deleteTask(id: number) {
+    const token = await getToken();
+
     try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/task/${id}`, {
             method: 'DELETE',

@@ -4,7 +4,7 @@ import { cn } from "@lib/utils";
 import  type { Task, UpdateTask } from "@sharedTypes/task";
 import { TriangleAlert } from 'lucide-react';
 import EditTaskModal from "@components/modal/edit-task-modal";
-import { updateTask } from '@actions/task/task.actions';
+import { completeTask } from '@actions/task/task.actions';
 
 interface TaskCardProps {
   task: Task;
@@ -33,7 +33,7 @@ const TaskCard = ({ task }: TaskCardProps) => {
     };
 
     try {
-      const response = await updateTask(id, updatedTask);
+      const response = await completeTask(id);
       if (response.success) {
         window.location.reload();
       } else {
