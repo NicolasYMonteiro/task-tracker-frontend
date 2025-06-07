@@ -16,20 +16,18 @@ const CreateTaskModal = () => {
                         aria-label="Adicionar nova tarefa"
                         title="Adicionar nova tarefa"
                         className={cn(
-                            "aspect-square w-full md:w-auto md:h-full",
-                            "bg-blue-500 text-white md:bg-white md:text-blue-600",
+                            "w-full h-full md:w-2/3 lg:w-1/3",
+                            "bg-blue-500 text-white",
                             "border-2 border-blue-600",
-                            "hover:bg-blue-600 md:hover:bg-gray-50",
+                            "hover:bg-blue-600",
                             "hover:border-blue-700",
-                            "rounded-lg md:rounded-full p-4 md:p-0",
-                            "flex items-center justify-center gap-2 md:flex-col",
-                            "text-xl md:text-6xl",
+                            "rounded-lg p-1",
+                            "flex items-center justify-center gap-2",
+                            "text-xl md:text-2xl",
                             "transition-all duration-300 ease-in-out transform",
-                            "md:hover:scale-105"
                         )}
                     >
-                        <span className="md:hidden">Nova tarefa</span>
-                        <span className="hidden md:block">+</span>
+                        <span className="">Nova tarefa</span>
 
                     </Button>
                 }
