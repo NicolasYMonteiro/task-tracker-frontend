@@ -3,10 +3,10 @@
 import type { CreateTask } from '@sharedTypes/task';
 import { getToken } from '@lib/server-utils';
 
-export async function getTasks() {
+export async function getTasks(filter: string, order: string) {
     const token = await getToken();
     try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/task/listAll`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/task/listAll?filter=${filter}&order=${order}`, {
             cache: 'no-store',
             headers: {
                 Authorization: `Bearer ${token}`,
