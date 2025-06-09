@@ -19,6 +19,17 @@ const nextConfig: NextConfig = {
     };
     return config;
   },
+  async rewrites() {
+    return [
+      {
+        source: "/user/:path*",
+        destination: "https://task-tracker-backend-glwz.onrender.com/user/:path*",
+      },
+      {
+        source: "/task/:path*",
+        destination: "https://task-tracker-backend-glwz.onrender.com/task/:path*",
+      },
+    ];
+  },
 };
-
 export default nextConfig;
