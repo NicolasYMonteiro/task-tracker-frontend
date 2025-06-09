@@ -30,8 +30,6 @@ export async function signIn(formData: FormData) {
         if (!response.ok) {
             const message = responseBody?.message ?? "Erro ao fazer login";
             return { error: true, message };
-        } else {
-            window.location.href = "/home";
         }
 
         return {
