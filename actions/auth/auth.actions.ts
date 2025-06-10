@@ -18,7 +18,7 @@ export async function signIn(formData: FormData) {
         };
     }
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/login`, {
+        const response = await fetch("/user/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             credentials: 'include',
@@ -71,7 +71,7 @@ export async function signUp(formData: FormData) {
     }
 
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/register`, {
+        const response = await fetch("/user/register", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             credentials: 'include',
@@ -103,7 +103,7 @@ export async function signUp(formData: FormData) {
 
 export async function signOut() {
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/logout`, {
+        const response = await fetch("/user/logout", {
             method: "POST",
             credentials: 'include',
         });
