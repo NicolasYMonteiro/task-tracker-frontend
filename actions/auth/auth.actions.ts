@@ -18,7 +18,8 @@ export async function signIn(formData: FormData) {
         };
     }
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/login`, {
+        console.log(`${process.env.NEXT_PUBLIC_BASE_URL}/api/login`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             credentials: 'include',
