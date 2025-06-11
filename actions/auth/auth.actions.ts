@@ -1,4 +1,4 @@
-'use client';
+'use server';
 
 import { SignInSchema } from "schemas/Sign-In-Schema";
 import { formSchema } from "schemas/sign-up-schema";
