@@ -3,10 +3,28 @@ import type { NextRequest } from 'next/server'
 
 const PUBLIC_PATHS = ['/', '/sign-in', '/sign-up']
 
+const PROXY_PATH = '/api/proxy'
+const BACKEND_URL = process.env.BACKEND_URL
+
 export function middleware(req: NextRequest) {
-  const token = req.cookies.get('token')?.value
   const { pathname } = req.nextUrl
 
+  if (pathname.startsWith(PROXY_PATH)) {
+
+    // Remove o prefixo do proxy e adiciona o caminho do backend
+    const apiPath = pathname.slice(PROXY_PATH.length)
+    const proxyUrl = new URL(apiPath + req.nextUrl.search, BACKEND_URL)
+    console.log('Proxying request to:', proxyUrl.toString())
+
+    // Clona a requisição original para o backend
+    return NextResponse.rewrite(proxyUrl, {
+      request: {
+        headers: new Headers(req.headers)
+      }
+    })
+  }
+
+  const token = req.cookies.get('token')?.value
   const isPublic = PUBLIC_PATHS.includes(pathname)
 
   if (!token && !isPublic) {
@@ -25,5 +43,6 @@ export function middleware(req: NextRequest) {
 export const config = {
   matcher: [
     '/((?!_next/static|_next/image|favicon.ico|api).*)',
+    '/api/proxy/:path*'
   ],
 }

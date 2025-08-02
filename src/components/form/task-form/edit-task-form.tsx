@@ -58,7 +58,6 @@ const EditTaskForm = ({ task }: EditTaskModalProps) => {
       const response = await updateTask(task.id, data)
       if (response.success) {
         toast.success("Tarefa modificada com sucesso!");
-        form.reset();
         window.location.reload();
 
       } else {
@@ -69,9 +68,9 @@ const EditTaskForm = ({ task }: EditTaskModalProps) => {
       console.error("Erro inesperado ao atualizar tarefa:", error);
     }
   }
-  const handleDelete = () => {
+  const handleDelete = async () => {
     try {
-      deleteTask(task.id);
+      await deleteTask(task.id);
       toast.success("Tarefa excluída com sucesso!");
       window.location.reload();
     }

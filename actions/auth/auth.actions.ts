@@ -1,4 +1,3 @@
-'use server';
 
 import { SignInSchema } from "schemas/Sign-In-Schema";
 import { formSchema } from "schemas/sign-up-schema";
@@ -10,7 +9,6 @@ export async function signIn(formData: FormData) {
     const validatedFields = SignInSchema.safeParse({ email, password });
 
     if (!validatedFields.success) {
-        console.log("Erro de validação:", validatedFields.error.flatten().fieldErrors);
         return {
             errors: validatedFields.error.flatten().fieldErrors,
             message: "Preencha todos os campos corretamente.",
@@ -18,8 +16,7 @@ export async function signIn(formData: FormData) {
         };
     }
     try {
-        console.log(`${process.env.NEXT_PUBLIC_BASE_URL}/api/login`);
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/login`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/user/login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             credentials: 'include',
@@ -72,7 +69,7 @@ export async function signUp(formData: FormData) {
     }
 
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/register`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/user/register`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             credentials: 'include',
@@ -104,7 +101,7 @@ export async function signUp(formData: FormData) {
 
 export async function signOut() {
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/logout`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/user/logout`, {
             method: "POST",
             credentials: 'include',
         });

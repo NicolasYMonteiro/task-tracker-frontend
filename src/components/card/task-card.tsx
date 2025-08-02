@@ -22,7 +22,7 @@ const TaskCard = ({ task }: TaskCardProps) => {
   const ChangeStatus = async () => {
     const newStatus = status === 'COMPLETED' ? 'PENDING' : 'COMPLETED';
   
-    const updatedTask: UpdateTask = {
+     const updatedTask: UpdateTask = {
       id,
       title,
       description,
