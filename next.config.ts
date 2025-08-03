@@ -9,8 +9,8 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return [
       {
-        source: "/api/proxy/:path*",
-        destination: "/api/proxy/:path*",
+        source: "/api/backend/:path*",
+        destination: "/api/backend/:path*",
       },
     ];
   },
@@ -22,9 +22,7 @@ const nextConfig: NextConfig = {
         headers: [
           {
             key: "Access-Control-Allow-Origin",
-            value: process.env.NODE_ENV === "production"
-              ? `${process.env.FRONTEND_URL}`
-              : "http://localhost:3000",
+            value: `${process.env.BACKEND_URL}`,
           },
           {
             key: "Access-Control-Allow-Methods",

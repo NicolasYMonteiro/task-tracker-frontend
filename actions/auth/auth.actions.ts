@@ -23,8 +23,6 @@ export async function signIn(formData: FormData) {
             body: JSON.stringify({ email, password }),
         });
 
-        console.log("Response from login:", response);
-
         const responseBody = await response.json();
 
         if (!response.ok) {
