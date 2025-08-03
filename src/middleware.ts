@@ -10,11 +10,14 @@ export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl
 
   if (pathname.startsWith(PROXY_PATH)) {
-
+    console.log('pathname:', pathname)
+    console.log('BACKEND_URL:', BACKEND_URL)
     // Remove o prefixo do proxy e adiciona o caminho do backend
     const apiPath = pathname.slice(PROXY_PATH.length)
     const proxyUrl = new URL(apiPath + req.nextUrl.search, BACKEND_URL)
-    console.log('Proxying request to:', proxyUrl.toString())
+    console.log('apiPath:', apiPath)
+
+    console.log('final URL:', apiPath + req.nextUrl.search)
 
     // Clona a requisição original para o backend
     return NextResponse.rewrite(proxyUrl, {
