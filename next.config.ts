@@ -23,7 +23,7 @@ const nextConfig: NextConfig = {
           {
             key: "Access-Control-Allow-Origin",
             value: process.env.NODE_ENV === "production"
-              ? "https://seusite.com"
+              ? "https://atlasdesenvolvimento.vercel.app"
               : "http://localhost:3000",
           },
           {
