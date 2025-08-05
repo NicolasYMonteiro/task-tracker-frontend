@@ -34,18 +34,18 @@ const Page = () => {
 
   return (
     <div className="relative min-h-screen px-4 py-8 bg-white">
-      {/* Fundo com imagem suavizada */}
-      <div className="md:absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20 pointer-events-none md:bg-[url('/greciaFundo.png')]" />
-
-      {/* Camada de gradiente em cima da imagem */}
-      <div className="absolute inset-0 bg-gradient-to-b from-white/90 to-white/60 z-0 pointer-events-none" />
 
       {/* Conteúdo principal */}
       <div className={`relative z-10 ${tasks.length === 0 ? 'md:h-screen' : 'md:h-auto'} md:w-5/6 p-6 md:rounded-xl mx-auto`}>
 
-        <h1 className="text-4xl font-serif font-bold text-blue-900 text-center mb-8 tracking-wide">
-          Tarefas
-        </h1>
+        <header className="mb-8 text-center">
+          <h1 className="text-4xl font-bold text-gray-800 mb-2">
+            Gerenciador de Tarefas
+          </h1>
+          <p className="text-gray-600 max-w-2xl mx-auto">
+            Organize seus estudos, tarefas e desenvolvimento pessoal de forma eficiente
+          </p>
+        </header>
         {/* Filtros */}
         <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4 px-4">
           {/* Filtros por período */}
@@ -61,8 +61,8 @@ const Page = () => {
                 key={value}
                 onClick={() => setSelectedFilter(value)}
                 className={`px-4 py-1.5 rounded-full text-sm font-medium border shadow-sm transition-colors duration-200 ${selectedFilter === value
-                    ? 'bg-blue-600 text-white border-blue-600'
-                    : 'bg-white text-blue-600 border-blue-300 hover:bg-blue-100'
+                  ? 'bg-blue-600 text-white border-blue-600'
+                  : 'bg-white text-blue-600 border-blue-300 hover:bg-blue-100'
                   }`}
               >
                 {label}
@@ -80,8 +80,8 @@ const Page = () => {
                 key={value}
                 onClick={() => setSelectedOrder(value as 'asc' | 'desc')}
                 className={`px-4 py-1.5 rounded-full text-sm font-medium border shadow-sm transition-colors duration-200 ${selectedOrder === value
-                    ? 'bg-green-600 text-white border-green-600'
-                    : 'bg-white text-green-600 border-green-300 hover:bg-green-100'
+                  ? 'bg-green-600 text-white border-green-600'
+                  : 'bg-white text-green-600 border-green-300 hover:bg-green-100'
                   }`}
               >
                 {label}
