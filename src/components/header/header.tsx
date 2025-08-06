@@ -23,14 +23,7 @@ const Header = () => {
       <hr className="border-t border-gray-500/70 w-full" />
 
       <li>
-        <a href="/relatorios" className="hover:text-gray-400">
-          Relatórios
-        </a>
-      </li>
-      <hr className="border-t border-gray-500/70 w-full" />
-
-      <li>
-        <a href="/perfil" className="hover:text-gray-400">
+        <a href="/profille" className="hover:text-gray-400">
           <FontAwesomeIcon icon={faCircleUser} className="hidden md:block ml-2 fa-2xl" />
           <span className="md:hidden">Perfil</span>
         </a>
