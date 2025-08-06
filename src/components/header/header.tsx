@@ -35,10 +35,10 @@ const Header = () => {
     <header
       className="fixed top-0 left-0 right-0 z-50 p-2 md:p-4 text-zinc-200 transition-colors duration-300 shadow-md bg-zinc-800"
     >
-      <div className="flex items-center justify-between px-2 py-2">
+      <div className="flex items-center justify-between px-2">
         <a
           href="/home"
-          className="text-2xl md:text-3xl text-blue-400 font-semibold whitespace-nowrap"
+          className="text-2xl md:text-2xl text-blue-400 font-semibold whitespace-nowrap"
         >
           Atlas Desenvolvimento
         </a>

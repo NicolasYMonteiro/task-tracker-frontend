@@ -59,8 +59,8 @@ const PomodoroTimer = () => {
   };
 
   return (
-    <div className="w-full h-fit z-10 mx-auto mt-10 p-6 bg-white rounded-3xl shadow-md border border-blue-700 text-center">
-      <h1 className="text-2xl font-bold text-blue-600">Temporizador Pomodoro</h1>
+    <div className="w-full h-fit z-10 mx-auto mt-10 p-6 bg-white rounded-3xl shadow-md border border-gray-700 text-center">
+      <h1 className="text-2xl font-bold text-gray-700">Temporizador Pomodoro</h1>
       <p className="text-gray-500 mb-4">Concentre-se no seu trabalho e não se distraia por apenas  {sessionLength} minutos</p>
 
       <div className="bg-blue-500 text-white rounded-full w-48 h-48 mx-auto flex flex-col justify-center items-center text-4xl font-semibold relative">

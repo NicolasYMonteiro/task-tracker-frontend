@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Plus } from "lucide-react";
 import { FaTrash } from "react-icons/fa";
 import { Textarea } from "@components/ui/textarea";
+import { Button } from "@components/ui/button";
 
 const NotesCard = () => {
     const [notes, setNotes] = useState<{ id: number; title: string }[]>([]);
@@ -25,7 +26,7 @@ const NotesCard = () => {
     };
 
     return (
-        <div className="w-full h-fit z-10 mx-auto mt-10 p-6 bg-white rounded-3xl shadow-md border border-blue-700 text-center space-y-4">
+        <div className="w-full h-fit z-10 mx-auto mt-10 p-6 bg-white rounded-lg shadow-md border text-center space-y-4">
             <h2 className="text-xl font-semibold text-center text-gray-800">Notas Rápidas</h2>
 
             <div className="space-y-2">
@@ -36,7 +37,7 @@ const NotesCard = () => {
                     >
                         <div className="flex w-full items-center gap-3 cursor-pointer group">
 
-                            <Textarea 
+                            <Textarea
                                 value={Note.title}
                                 onChange={(e) => {
                                     const updatedNotes = notes.map(t =>
@@ -57,20 +58,18 @@ const NotesCard = () => {
                 ))}
             </div>
 
-            <div className="flex items-center gap-2">
-                <Textarea
-                    value={newNote}
-                    onChange={(e) => setNewNote(e.target.value)}
-                    placeholder="Digite sua nota..."
-                    className="flex-1 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
-                />
-                <button
-                    onClick={handleAddNote}
-                    className="p-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-                >
-                    <Plus className="w-4 h-4" />
-                </button>
-            </div>
+            <Textarea
+                value={newNote}
+                onChange={(e) => setNewNote(e.target.value)}
+                placeholder="Digite sua nota..."
+                className="flex-1 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+            />
+
+            <Button onClick={handleAddNote} className="w-full gap-2">
+                <Plus className="w-4 h-4" />
+                Adicionar Anotação
+            </Button>
+
         </div>
     );
 };
