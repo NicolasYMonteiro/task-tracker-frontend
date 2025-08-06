@@ -17,10 +17,10 @@ const CreateTaskModal = () => {
                         title="Adicionar nova tarefa"
                         className={cn(
                             "w-full h-full md:w-2/3 lg:w-1/3",
-                            "bg-blue-500 text-white",
-                            "border-2 border-blue-600",
-                            "hover:bg-blue-600",
-                            "hover:border-blue-700",
+                            "bg-gray-500 text-white",
+                            "border-2 border-gray-600",
+                            "hover:bg-gray-600",
+                            "hover:border-gray-700",
                             "rounded-lg p-1",
                             "flex items-center justify-center gap-2",
                             "text-xl md:text-2xl",

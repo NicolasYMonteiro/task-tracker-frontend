@@ -40,7 +40,7 @@ const Home = () => {
                         title: "Relatórios",
                         description: "Visualize seu progresso em gráficos e dados.",
                         icon: "📊",
-                        url: "/relatorios",
+                        url: "/profille",
                     },
                 ].map((card, index) => (
                     <a href={card.url} key={index} className="border rounded-xl p-6 shadow hover:shadow-lg transition text-center">

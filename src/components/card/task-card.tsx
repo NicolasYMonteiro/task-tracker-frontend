@@ -47,8 +47,8 @@ const TaskCard = ({ task }: TaskCardProps) => {
   return (
     <div
       className={cn(
-        "relative p-4 rounded-xl border border-blue-600 shadow-md transition-all duration-300 flex flex-col justify-between",
-        "bg-[#fffef2] hover:shadow-lg hover:bg-[#fffeeb]",
+        "relative p-4 rounded-xl border border-gray-600 shadow-md transition-all duration-300 flex flex-col justify-between",
+        "bg-white hover:shadow-lg hover:bg-gray-50",
         emergency ? "border-red-700 border-2 shadow-red-500" :
         (isCompleted) && "line-through"
       )}
@@ -68,9 +68,6 @@ const TaskCard = ({ task }: TaskCardProps) => {
             </h2>
           </div>
 
-          {isInProgress && (
-            <span className="text-xs font-semibold bg-blue-500/80 text-white px-2 py-1 rounded">Em Progresso</span>
-          )}
           {isPending && (
             <span className="text-xs font-semibold bg-yellow-400/80 text-white px-2 py-1 rounded">Pendente</span>
           )}
@@ -95,8 +92,8 @@ const TaskCard = ({ task }: TaskCardProps) => {
           className={cn(
             "w-full mr-3 flex items-center justify-center gap-2 rounded-md px-4 py-2 text-white text-sm font-semibold transition-shadow duration-150 shadow",
             isCompleted
-              ? "bg-yellow-700 hover:bg-yellow-800"
-                : "bg-green-600 hover:bg-green-700"
+              ? "bg-gray-600 hover:bg-gray-700"
+                : "bg-gray-600 hover:bg-gray-700"
           )}
         >
           {isCompleted ? <FaUndo /> : <FaCheck />}
