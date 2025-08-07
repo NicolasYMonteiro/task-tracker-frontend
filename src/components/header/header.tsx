@@ -33,7 +33,7 @@ const Header = () => {
 
   return (
     <header
-      className="fixed top-0 left-0 right-0 z-50 p-2 md:p-4 text-zinc-200 transition-colors duration-300 shadow-md bg-zinc-800"
+      className="fixed top-0 left-0 right-0 z-50 p-4 text-zinc-200 transition-colors duration-300 shadow-md bg-zinc-800"
     >
       <div className="flex items-center justify-between px-2">
         <a
