@@ -10,10 +10,13 @@ import Link from "next/link";
 import { formSchema } from "schemas/sign-up-schema";
 import { signUp } from "@actions/auth/auth.actions";
 import { toast } from "react-toastify";
+import { useState } from "react";
+import { Loader2 } from "lucide-react";
 
 type SignUnFormData = z.infer<typeof formSchema>;
 
 const SignUpForm = () => {
+    const [isLoading, setIsLoading] = useState(false);
 
     const form = useForm<SignUnFormData>({
         resolver: zodResolver(formSchema),
@@ -26,6 +29,8 @@ const SignUpForm = () => {
     });
 
     const onSubmit = async (data: SignUnFormData) => {
+        setIsLoading(true);
+
         const formData = new FormData();
         formData.append("name", data.name);
         formData.append("email", data.email);
@@ -36,14 +41,16 @@ const SignUpForm = () => {
             const result = await signUp(formData);
 
             if (result?.error) {
-                toast.error(result.message || "Erro ao fazer login");
+                toast.error(result.message || "Erro ao fazer registro");
                 return;
             }
-            toast.success(result?.message || "Login realizado com sucesso");
+            toast.success(result?.message || "Registro realizado com sucesso");
             window.location.href = "/sign-in";
         } catch (error) {
             console.error("Erro inesperado ao criar conta:", error);
             form.setError("root", { message: "Erro inesperado ao criar conta" });
+        } finally {
+            setIsLoading(false); // Desativa o estado de loading
         }
     };
 
@@ -89,8 +96,16 @@ const SignUpForm = () => {
                     <Button
                         type="submit"
                         className="w-full text-md md:text-lg bg-gradient-to-r bg-blue-900 text-white hover:brightness-110 transition-all duration-300 shadow-md shadow-yellow-900/40"
+                        disabled={isLoading} // Desabilita o botão durante o loading
                     >
-                        Começar jornada
+                        {isLoading ? (
+                            <>
+                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                Processando...
+                            </>
+                        ) : (
+                            "Começar jornada"
+                        )}
                     </Button>
                 </form>
             </Form>

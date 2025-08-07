@@ -9,12 +9,16 @@ import { Button } from "@components/ui/button";
 import Link from "next/link";
 import { signIn } from "@actions/auth/auth.actions";
 import { toast } from "react-toastify";
-
+import { useState } from "react";
+import { Loader2 } from "lucide-react";
 import { SignInSchema } from "schemas/Sign-In-Schema";
+import router from "next/router";
 
 type SignInFormData = z.infer<typeof SignInSchema>;
 
 const SignInForm = () => {
+    const [isLoading, setIsLoading] = useState(false);
+
 
     const form = useForm<SignInFormData>({
         resolver: zodResolver(SignInSchema),
@@ -25,21 +29,28 @@ const SignInForm = () => {
     });
 
     const onSubmit = async (data: SignInFormData) => {
+        setIsLoading(true);
+
         const formData = new FormData();
         formData.append("email", data.email);
         formData.append("password", data.password);
 
-        const result = await signIn(formData);
+        try {
+            const result = await signIn(formData);
 
-        if (result?.error) {
-            toast.error(result.message || "Erro ao fazer login");
-            return;
-          }
-          
-          toast.success(result?.message || "Login realizado com sucesso");
-          
-        // Login OK — redirecionar
-        // router.push("/dashboard");
+            if (result?.error) {
+                toast.error(result.message || "Erro ao fazer login");
+                return;
+            }
+            toast.success(result?.message || "Login realizado com sucesso");
+            window.location.href = "/sign-in";
+        } catch (error) {
+            console.error("Erro inesperado ao criar conta:", error);
+            form.setError("root", { message: "Erro inesperado ao criar conta" });
+        } finally {
+            setIsLoading(false);
+            router.push("/home");
+        }
     };
 
     return (
@@ -78,7 +89,14 @@ const SignInForm = () => {
                         type="submit"
                         className="w-full text-md md:text-lg bg-blue-900 text-white hover:bg-blue-800 transition-colors"
                     >
-                        Entrar
+                        {isLoading ? (
+                            <>
+                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                Processando...
+                            </>
+                        ) : (
+                            "Entrar"
+                        )}
                     </Button>
                 </form>
             </Form>

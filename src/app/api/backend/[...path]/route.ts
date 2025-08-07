@@ -2,8 +2,37 @@
 import { NextRequest } from 'next/server'
 
 const BACKEND_URL = `${process.env.BACKEND_URL}`
+const MAX_RETRIES = 5 
+const INITIAL_RETRY_DELAY = 5000
+const BACKEND_TIMEOUT = 60000 
 
 export const dynamic = 'force-dynamic'
+
+async function fetchWithRetry(url: string, options: RequestInit, retries = MAX_RETRIES): Promise<Response> {
+  try {
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), BACKEND_TIMEOUT)
+
+    const response = await fetch(url, {
+      ...options,
+      signal: controller.signal
+    }).finally(() => clearTimeout(timeoutId))
+
+    if (!response.ok && retries > 0) {
+      throw new Error(`HTTP error! status: ${response.status}`)
+    }
+    return response
+
+  } catch (error) {
+    if (retries <= 0) throw error
+    
+    // aumenta progressivamente o tempo de espera
+    const delay = INITIAL_RETRY_DELAY * (MAX_RETRIES - retries + 1)
+    
+    await new Promise(resolve => setTimeout(resolve, delay))
+    return fetchWithRetry(url, options, retries - 1)
+  }
+}
 
 async function handleRequest(request: NextRequest) {
   try {
@@ -22,7 +51,8 @@ async function handleRequest(request: NextRequest) {
       body = await request.text()
     }
 
-    const backendResponse = await fetch(url.toString(), {
+    const startTime = Date.now()
+    const backendResponse = await fetchWithRetry(url.toString(), {
       method: request.method,
       headers,
       body,
@@ -32,17 +62,14 @@ async function handleRequest(request: NextRequest) {
     const responseBody = await backendResponse.text()
 
     const responseHeaders = new Headers(backendResponse.headers)
-
-    // 🔴 Remover headers que causam problemas
     responseHeaders.delete('content-encoding')
-    responseHeaders.delete('content-length') // Pode ser inconsistente após modificação
+    responseHeaders.delete('content-length') 
     responseHeaders.delete('transfer-encoding')
 
-    // ✅ Headers CORS
+    // Headers CORS
     responseHeaders.set('Access-Control-Allow-Origin', request.headers.get('origin') || '*')
     responseHeaders.set('Access-Control-Allow-Credentials', 'true')
     responseHeaders.set('Access-Control-Expose-Headers', 'Set-Cookie')
-
 
     return new Response(responseBody, {
       status: backendResponse.status,
@@ -50,14 +77,17 @@ async function handleRequest(request: NextRequest) {
     })
 
   } catch (error) {
-    console.error('Proxy error:', error)
+    console.error('Erro ao conectar ao backend:', error)
     return new Response(JSON.stringify({
-      error: 'Bad Gateway',
-      message: 'Failed to connect to backend service'
+      error: 'Serviço em inicialização',
+      message: 'O sistema está iniciando. Por favor, aguarde e tente novamente em alguns instantes.',
+      retryAfter: 30 // Segundos
     }), {
-      status: 502,
+      status: 503, // Service Unavailable
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Retry-After': '30',
+        'X-Backend-Status': 'starting'
       }
     })
   }
