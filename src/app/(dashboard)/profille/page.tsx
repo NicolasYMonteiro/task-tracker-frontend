@@ -1,15 +1,19 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { FiUser, FiMail, FiCalendar, FiCheckCircle, FiClock, FiList, FiTrendingUp, FiAlertTriangle } from 'react-icons/fi';
+import { FiUser, FiMail, FiCalendar, FiCheckCircle, FiClock, FiList, FiTrendingUp, FiAlertTriangle, FiLogOut } from 'react-icons/fi';
 import { TaskStatus } from '@sharedTypes/task';
 import StatCard from '@components/card/statCard';
-import { getUserProfile } from '@actions/user/user.actions'; 
+import { getUserProfile } from '@actions/user/user.actions';
 import type { UserProfile } from '@sharedTypes/user';
+import { Button } from '@components/ui/button';
+import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
 
 const ProfilePage = () => {
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
+  const router = useRouter()
 
   useEffect(() => {
     const loadProfile = async () => {
@@ -42,6 +46,26 @@ const ProfilePage = () => {
     );
   }
 
+
+  const handleLogout = async () => {
+    try {
+      const response = await fetch('/api/auth/logout', {
+        method: 'GET',
+        credentials: 'include'
+      })
+
+      if (response.ok) {
+        toast.success('Logout realizado com sucesso')
+        router.push('/sign-in')
+      } else {
+        throw new Error('Erro ao fazer logout')
+      }
+    } catch (error) {
+      toast.error('Erro ao fazer logout')
+      console.error('Logout error:', error)
+    }
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
@@ -61,6 +85,7 @@ const ProfilePage = () => {
                 </div>
                 <h2 className="text-2xl font-bold text-gray-800">{profile.name}</h2>
                 <p className="text-gray-600 mb-6">{profile.email}</p>
+
               </div>
 
               <div className="space-y-4">
@@ -85,6 +110,18 @@ const ProfilePage = () => {
                   </div>
                 </div>
               </div>
+
+              <div className='mt-6 w-full flex justify-end'>
+                <Button
+                  variant="outline"
+                  className="gap-2 my-2 text-red-600 border-red-200 hover:bg-red-50"
+                  onClick={handleLogout}
+                >
+                  <FiLogOut className="text-red-600" />
+                  Sair da conta
+                </Button>
+              </div>
+
             </div>
           </div>
 

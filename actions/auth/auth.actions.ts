@@ -1,4 +1,3 @@
-
 import { SignInSchema } from "schemas/Sign-In-Schema";
 import { formSchema } from "schemas/sign-up-schema";
 
@@ -49,7 +48,7 @@ export async function signUp(formData: FormData) {
     const name = formData.get("name") as string;
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
-    const confirmPassword = formData.get("confirmPassword") as string; // ADICIONE ISSO
+    const confirmPassword = formData.get("confirmPassword") as string; 
 
     const validatedFields = formSchema.safeParse({
         name,
@@ -99,23 +98,3 @@ export async function signUp(formData: FormData) {
     }
 }
 
-export async function signOut() {
-    try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/user/logout`, {
-            method: "POST",
-            credentials: 'include',
-        });
-
-        if (!response.ok) {
-            const errorData = await response.json();
-            console.error('Erro ao fazer logout:', errorData.message);
-            return { success: false, message: errorData.message || 'Erro ao fazer logout' };
-        }
-
-        window.location.href = "/login";
-        return { success: true, message: "Logout realizado com sucesso" };
-    } catch (error) {
-        console.error("Erro ao fazer logout:", error);
-        return { success: false, message: "Erro inesperado no logout" };
-    }
-}
