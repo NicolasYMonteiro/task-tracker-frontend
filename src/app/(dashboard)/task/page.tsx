@@ -5,6 +5,7 @@ import TaskCard from '@components/card/task-card';
 import type { Task } from "@sharedTypes/task";
 import { getTasks } from '@actions/task/task.actions';
 import CreateTaskModal from '@components/modal/create-task-modal';
+import { LoadingPage, LoadingGrid } from '@components/ui/loading';
 
 const Page = () => {
   const [selectedFilter, setSelectedFilter] = useState('today');
@@ -31,6 +32,15 @@ const Page = () => {
 
     fetchTasks();
   }, [selectedFilter, selectedOrder]);
+
+  if (loading) {
+    return (
+      <LoadingPage 
+        title="Carregando suas tarefas..." 
+        description="Organizando suas atividades do dia" 
+      />
+    );
+  }
 
   return (
     <div className="relative min-h-screen px-4 py-8 bg-white">

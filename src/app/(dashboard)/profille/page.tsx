@@ -4,34 +4,46 @@ import { useEffect, useState } from 'react';
 import { FiUser, FiMail, FiCalendar, FiCheckCircle, FiClock, FiList, FiTrendingUp, FiAlertTriangle, FiLogOut } from 'react-icons/fi';
 import { TaskStatus } from '@sharedTypes/task';
 import StatCard from '@components/card/statCard';
-import { getUserProfile } from '@actions/user/user.actions';
+import { getUserProfile, getProductivityData } from '@actions/user/user.actions';
 import type { UserProfile } from '@sharedTypes/user';
 import { Button } from '@components/ui/button';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
+import { LoadingPage, LoadingSkeleton, LoadingCard } from '@components/ui/loading';
+import { ProductivityCharts } from '@components/charts/productivity-charts';
 
 const ProfilePage = () => {
   const [profile, setProfile] = useState<UserProfile | null>(null);
+  const [productivityData, setProductivityData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [chartsLoading, setChartsLoading] = useState(true);
   const router = useRouter()
 
   useEffect(() => {
     const loadProfile = async () => {
       try {
-        const data = await getUserProfile();
-        setProfile(data);
+        const [profileData, productivityDataResult] = await Promise.all([
+          getUserProfile(),
+          getProductivityData()
+        ]);
+        setProfile(profileData);
+        setProductivityData(productivityDataResult);
         setLoading(false);
+        setChartsLoading(false);
       } catch (error) {
         console.error('Failed to load profile:', error);
+        setLoading(false);
+        setChartsLoading(false);
       }
     };
     loadProfile();
   }, []);
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-      </div>
+      <LoadingPage 
+        title="Carregando seu perfil..." 
+        description="Buscando suas estatísticas e informações" 
+      />
     );
   }
 
@@ -170,6 +182,27 @@ const ProfilePage = () => {
                 />
               </div>
             </div>
+
+            {/* Gráficos de Produtividade */}
+            {chartsLoading ? (
+              <div className="bg-white rounded-xl shadow-sm p-6">
+                <div className="animate-pulse">
+                  <div className="h-6 bg-gray-200 rounded w-1/3 mb-6"></div>
+                  <div className="h-64 bg-gray-200 rounded"></div>
+                </div>
+              </div>
+            ) : productivityData ? (
+              <div className="bg-white rounded-xl shadow-sm p-6">
+                <ProductivityCharts data={productivityData} />
+              </div>
+            ) : (
+              <div className="bg-white rounded-xl shadow-sm p-6">
+                <h2 className="text-xl font-bold text-gray-800 mb-6">Gráficos de Produtividade</h2>
+                <div className="text-center py-8">
+                  <p className="text-gray-500">Dados de produtividade não disponíveis</p>
+                </div>
+              </div>
+            )}
 
             {/* Tarefas recentes */}
             <div className="bg-white rounded-xl shadow-sm p-6">
